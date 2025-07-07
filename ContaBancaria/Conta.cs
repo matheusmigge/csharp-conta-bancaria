@@ -35,7 +35,7 @@ namespace ContaBancaria
         }
 
 
-        public void Sacar(decimal valor)
+        public virtual void Sacar(decimal valor)
         {
             if (valor > Saldo)
             {
@@ -51,7 +51,7 @@ namespace ContaBancaria
 
         public void ExibirSaldo()
         {
-            Console.WriteLine($"Saldo atual: {Saldo:C}");
+            Console.WriteLine($"Saldo atual da conta de {Titular}: {Saldo:C}");
         }
     }
 

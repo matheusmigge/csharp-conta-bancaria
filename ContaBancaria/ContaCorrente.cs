@@ -6,21 +6,22 @@ using System.Threading.Tasks;
 
 namespace ContaBancaria
 {
-    public class ContaCorrente : Conta
+    public class ContaCorrente : Conta, ITributavel
     {
         public double LimiteChequeEspecial { get; private set; }
+
         public ContaCorrente(string numero, string titular, decimal saldo, double limite)
             : base(numero, titular, saldo)
         {
             LimiteChequeEspecial = limite;
         }
 
-        public void Sacar(decimal valor)
+        public override void Sacar(decimal valor)
         {
             Console.WriteLine($"Tentativa de saque valor: {valor:C} na {this.GetType().Name} de {this.Titular}");
             if (valor <= Saldo + (decimal)LimiteChequeEspecial)
             {
-                Saldo -= (decimal)valor;
+                Saldo -= valor;
                 Console.WriteLine($"Saque de {valor:C} realizado com sucesso. Novo saldo: {Saldo:C}");
             }
             else
@@ -29,5 +30,9 @@ namespace ContaBancaria
             }
         }
 
+        public double CalcularImposto()
+        {
+            return (double)Saldo * 0.02;
+        }
     }
 }

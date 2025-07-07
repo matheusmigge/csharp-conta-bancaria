@@ -37,9 +37,13 @@ namespace ContaBancaria
 
         public virtual void Sacar(decimal valor)
         {
+            if (valor <= 0)
+            {
+                Console.WriteLine("Valor inválido para saque.");
+            }
             if (valor > Saldo)
             {
-                Console.WriteLine("Saldo insuficiente para saque.");
+                throw new SaldoInsuficienteException("Saldo insuficiente para realizar o saque.");
             }
             else
             {
